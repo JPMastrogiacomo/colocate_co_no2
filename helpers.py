@@ -7,7 +7,7 @@ from numpy.lib.arraysetops import unique
 
 
 def get_city_centroid(name):
-    csv_floc = "../../data/cities.csv"
+    csv_floc = "cities.csv"
     with open(csv_floc, "r") as csv_in:
         rows = csv.reader(csv_in)
         for k, row in enumerate(rows):
@@ -77,6 +77,7 @@ def calculate_xgas(column_amount, surface_pressure, latitude, h2o_column_amount)
 
     return xgas
 
+
 def ds_groups(keys):
     """
     Get the unique set of
@@ -111,17 +112,23 @@ def read(floc, vgrps, dc_times=False):
     dat = xr.merge(xds)
     return dat
 
+
 if __name__ == "__main__":
     import xarray as xr
     import matplotlib.pyplot as plt
 
     a = xr.open_dataset("Houston_202207_202212.nc")
-    
+
     print(a)
-    
+
     if False:
-        for i in [1,5,10]:
+        for i in [1, 5, 10]:
             plt.figure()
-            b=a.isel(day=i)
-            print(b["carbonmonoxide_total_column_corrected"].values) 
-            b.plot.scatter(x="longitude", y="latitude", hue="carbonmonoxide_total_column_corrected", cmap="viridis")
+            b = a.isel(day=i)
+            print(b["carbonmonoxide_total_column_corrected"].values)
+            b.plot.scatter(
+                x="longitude",
+                y="latitude",
+                hue="carbonmonoxide_total_column_corrected",
+                cmap="viridis",
+            )
